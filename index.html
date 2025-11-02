@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/01.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="SKURI Taxi - Campus taxi call app for Sungkyul University students" />
-    <title>SKURI Taxi - Sungkyul University Campus Taxi</title>
+    <meta name="description" content="SKURI Taxi - 성결대학교 학생들을 위한 통합 캠퍼스 생활 플랫폼. 택시 동승 매칭, 실시간 공지사항, 학식 메뉴, 학사일정, 시간표 관리" />
+    <title>SKURI Taxi - 성결대학교 통합 캠퍼스 플랫폼</title>
     <style>
       * {
         margin: 0;
@@ -18,8 +18,13 @@
         --bg-secondary: #232326;
         --bg-tertiary: #303033;
         --accent: #4ADE80;
+        --accent-hover: #34D075;
+        --accent-blue: #60A5FA;
+        --accent-purple: #A78BFA;
         --text-primary: #FFFFFF;
         --text-secondary: #A1A1AA;
+        --gradient-primary: linear-gradient(135deg, #4ADE80 0%, #34D075 100%);
+        --gradient-secondary: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
       }
 
       html {
@@ -27,10 +32,14 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Noto Sans KR', sans-serif;
         background-color: var(--bg-primary);
+        background-image: 
+          radial-gradient(circle at 20% 50%, rgba(74, 222, 128, 0.05) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.05) 0%, transparent 50%);
         color: var(--text-primary);
         line-height: 1.6;
+        min-height: 100vh;
       }
 
       .container {
@@ -59,12 +68,14 @@
       .logo {
         width: 50px;
         height: 50px;
-        background-color: var(--accent);
         border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
+        object-fit: contain;
+        box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.1) rotate(5deg);
       }
 
       .header-text h1 {
@@ -97,18 +108,34 @@
       nav a:hover {
         color: var(--accent);
         border-bottom-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      nav a {
+        transition: all 0.3s ease;
       }
 
       section {
         padding: 4rem 0;
         opacity: 0;
-        animation: fadeIn 0.8s ease-out forwards;
+        animation: fadeInUp 0.8s ease-out forwards;
       }
 
       section:nth-child(1) { animation-delay: 0.1s; }
       section:nth-child(2) { animation-delay: 0.2s; }
       section:nth-child(3) { animation-delay: 0.3s; }
       section:nth-child(4) { animation-delay: 0.4s; }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
       @keyframes fadeIn {
         to {
@@ -124,14 +151,15 @@
       }
 
       .section-icon {
-        width: 36px;
-        height: 36px;
-        background-color: var(--accent);
-        border-radius: 8px;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 20px;
+        box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
       }
 
       h2 {
@@ -142,10 +170,18 @@
 
       .content-card {
         background-color: var(--bg-secondary);
-        border-radius: 12px;
+        border-radius: 16px;
         padding: 2rem;
         margin-bottom: 1.5rem;
         border: 1px solid var(--bg-tertiary);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(74, 222, 128, 0.1);
+        border-color: rgba(74, 222, 128, 0.3);
       }
 
       .content-card h3 {
@@ -166,17 +202,35 @@
         padding-left: 0;
       }
 
-      .content-card li {
+      .content-card > ul > li {
         padding-left: 1.5rem;
         position: relative;
+        margin-bottom: 1rem;
       }
 
-      .content-card li:before {
-        content: "•";
+      .content-card > ul > li:before {
+        content: "▸";
         color: var(--accent);
         font-weight: bold;
         position: absolute;
         left: 0;
+        font-size: 1.1rem;
+      }
+
+      .content-card ul ul {
+        margin-top: 0.5rem;
+        margin-left: 1rem;
+      }
+
+      .content-card ul ul li {
+        padding-left: 1.25rem;
+        font-size: 0.95rem;
+      }
+
+      .content-card ul ul li:before {
+        content: "• ";
+        color: var(--accent-blue);
+        font-size: 0.9rem;
       }
 
       .highlight {
@@ -185,13 +239,14 @@
       }
 
       .contact-info {
-        background-color: var(--bg-tertiary);
-        border-radius: 8px;
+        background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(74, 222, 128, 0.05) 100%);
+        border-radius: 12px;
         padding: 1.5rem;
         margin-top: 1.5rem;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 1rem;
+        border: 1px solid rgba(74, 222, 128, 0.2);
       }
 
       .contact-info a {
@@ -206,43 +261,121 @@
       }
 
       .faq-item {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background-color: var(--bg-tertiary);
+        border-radius: 12px;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      .faq-item:hover {
+        border-color: rgba(74, 222, 128, 0.3);
+        background-color: rgba(74, 222, 128, 0.03);
       }
 
       .faq-item h4 {
         color: var(--text-primary);
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.15rem;
+        margin-bottom: 0.75rem;
         font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
 
       .faq-item p {
         color: var(--text-secondary);
-        padding-left: 1rem;
-        border-left: 2px solid var(--accent);
+        padding-left: 1.75rem;
+        border-left: 3px solid var(--accent);
+        line-height: 1.8;
+        position: relative;
       }
 
       footer {
-        background-color: var(--bg-secondary);
+        background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
         border-top: 1px solid var(--bg-tertiary);
-        padding: 2rem 0;
+        padding: 2.5rem 0;
         text-align: center;
         color: var(--text-secondary);
         font-size: 0.9rem;
+        margin-top: 4rem;
       }
 
       .hero-section {
         text-align: center;
-        padding: 3rem 0;
+        padding: 4rem 0 3rem;
       }
 
       .app-icon {
-        width: 120px;
-        height: 120px;
-        margin: 0 auto 1.5rem;
-        border-radius: 24px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(74, 222, 128, 0.2);
+        width: 300px;
+        height: 300px;
+        margin: 0 auto 2rem;
+        border-radius: 100px;
+        box-shadow: 0 15px 40px rgba(74, 222, 128, 0.25);
+        transition: transform 0.3s ease;
+      }
+
+      .app-icon:hover {
+        transform: scale(1.05) rotate(2deg);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .feature-card {
+        background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 1px solid var(--bg-tertiary);
+        transition: all 0.3s ease;
+        text-align: left;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent);
+        box-shadow: 0 8px 24px rgba(74, 222, 128, 0.2);
+      }
+
+      .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+        box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+      }
+
+      .feature-card:nth-child(2) .feature-icon {
+        background: linear-gradient(135deg, var(--accent-blue) 0%, #3B82F6 100%);
+        box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+      }
+
+      .feature-card:nth-child(3) .feature-icon {
+        background: linear-gradient(135deg, var(--accent-purple) 0%, #8B5CF6 100%);
+        box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+      }
+
+      .feature-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-description {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
       }
 
       .app-icon img {
@@ -271,6 +404,20 @@
         nav {
           gap: 1rem;
         }
+
+        .feature-grid {
+          grid-template-columns: 1fr;
+          gap: 1.25rem;
+        }
+
+        .hero-section {
+          padding: 3rem 0 2rem;
+        }
+
+        .app-icon {
+          width: 120px;
+          height: 120px;
+        }
       }
     </style>
   </head>
@@ -278,16 +425,16 @@
     <header>
       <div class="container">
         <div class="header-content">
-          <div class="logo">🚕</div>
+          <img src="/01.png" alt="SKURI Taxi" class="logo" />
           <div class="header-text">
             <h1>SKURI Taxi</h1>
-            <p>Sungkyul University Campus Taxi Service</p>
+            <p>성결대학교 통합 캠퍼스 플랫폼</p>
           </div>
         </div>
         <nav>
-          <a href="#about">About</a>
-          <a href="#privacy">Privacy Policy</a>
-          <a href="#support">Support</a>
+          <a href="#about">소개</a>
+          <a href="#privacy">개인정보처리방침</a>
+          <a href="#support">고객지원</a>
         </nav>
       </div>
     </header>
@@ -295,92 +442,211 @@
     <main class="container">
       <section id="about" class="hero-section">
         <div class="app-icon">
-          <img src="/01.png" alt="SKURI Taxi App Icon" />
+          <img src="/01.png" alt="SKURI Taxi 앱 아이콘" />
         </div>
-        <div class="content-card">
-          <h3>About SKURI Taxi</h3>
-          <p>SKURI Taxi is a campus taxi call app designed exclusively for Sungkyul University students. Our service provides a convenient and safe way to request taxi rides within and around campus.</p>
-          <p>With SKURI Taxi, students can quickly book rides, track their driver's location, and enjoy a seamless transportation experience tailored to the university community.</p>
+        <div class="content-card" style="background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(74, 222, 128, 0.05) 100%);">
+          <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">SKURI Taxi 소개</h3>
+          <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <strong style="color: var(--accent);">SKURI Taxi</strong>는 성결대학교 학생들을 위해 특별히 제작된 <span style="color: var(--accent); font-weight: 600;">통합 캠퍼스 생활 플랫폼</span>입니다. 
+            단순한 택시 호출 앱을 넘어, 학생들이 캠퍼스에서 필요한 모든 정보와 서비스를 하나의 앱에서 편리하게 이용할 수 있도록 설계되었습니다.
+          </p>
+          <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
+            복잡한 캠퍼스 생활을 더 스마트하게 만드는 것이 SKURI Taxi의 목표입니다. 택시비 부담을 줄이고, 중요한 학교 정보를 놓치지 않으며, 
+            같은 학교 학생들과 함께하는 따뜻한 커뮤니티를 만들어갑니다.
+          </p>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon">🚕</div>
+              <div class="feature-title">택시 동승 매칭</div>
+              <div class="feature-description">
+                출발지와 도착지를 설정하고, 같은 길을 가는 학생들과 함께 택시를 공유하세요. 
+                택시비를 나눠 부담하여 경제적이고, 새로운 친구를 만날 수 있는 기회입니다.
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">📢</div>
+              <div class="feature-title">실시간 공지사항</div>
+              <div class="feature-description">
+                학교 공지사항을 실시간으로 받아보세요. 중요한 일정이나 공지가 등록되면 즉시 알림으로 
+                받아볼 수 있어 놓치는 일이 없습니다.
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🍽️</div>
+              <div class="feature-title">학식 메뉴 & 학사일정</div>
+              <div class="feature-description">
+                오늘의 학식 메뉴와 학교 학사일정을 한눈에 확인하세요. 계획적인 캠퍼스 생활을 위해 
+                필요한 모든 정보를 쉽게 접근할 수 있습니다.
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">📅</div>
+              <div class="feature-title">시간표 관리</div>
+              <div class="feature-description">
+                내 시간표를 앱에서 관리하고 확인하세요. 수업 시간과 장소를 빠르게 파악하고, 
+                다음 수업까지 남은 시간도 바로 확인할 수 있습니다.
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">💬</div>
+              <div class="feature-title">파티 채팅</div>
+              <div class="feature-description">
+                동승 파티원들과 실시간으로 소통하세요. 출발 전 합류 장소를 정하거나, 
+                도착 시간을 공유하는 등 원활한 협조를 위한 채팅 기능을 제공합니다.
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">🗺️</div>
+              <div class="feature-title">위치 기반 서비스</div>
+              <div class="feature-description">
+                정확한 위치 정보를 바탕으로 최적의 동승 파티를 찾아드립니다. 
+                가까운 위치의 학생들과 매칭되어 더욱 효율적인 동승이 가능합니다.
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--bg-tertiary);">
+            <p style="font-size: 1rem; line-height: 1.8; color: var(--text-secondary); text-align: center;">
+              <span style="color: var(--accent); font-weight: 600;">성결대학교 학생만을 위한</span> 
+              특별한 서비스로, Google 계정(@sungkyul.ac.kr)으로 간편하게 로그인하여 이용할 수 있습니다.
+            </p>
+          </div>
         </div>
       </section>
 
       <section id="privacy">
         <div class="section-header">
           <div class="section-icon">🔒</div>
-          <h2>Privacy Policy</h2>
+          <h2>개인정보처리방침</h2>
         </div>
 
         <div class="content-card">
-          <h3>Information We Collect</h3>
-          <p>SKURI Taxi is committed to protecting your privacy. We collect only the necessary information to provide our service:</p>
+          <h3>수집하는 정보</h3>
+          <p>SKURI Taxi는 귀하의 개인정보 보호를 위해 최선을 다합니다. 서비스 제공에 필요한 최소한의 정보만 수집합니다:</p>
           <ul>
-            <li><span class="highlight">Email Address:</span> We collect your Sungkyul University email address (@sungkyul.ac.kr) through Google login for authentication purposes only.</li>
-            <li><span class="highlight">Location Data:</span> We collect your real-time location information to facilitate taxi dispatch and provide accurate pickup services.</li>
+            <li><span class="highlight">회원 가입을 위한 정보:</span>
+              <ul>
+                <li>필수: 이메일 주소, 이름, 닉네임</li>
+                <li>선택: 학번, 이름</li>
+              </ul>
+            </li>
+            <li><span class="highlight">본인 인증을 위한 정보:</span>
+              <ul>
+                <li>필수: 이메일 주소, 이름 및 본인확인값(CI, DI)</li>
+                <li>선택: 학번</li>
+              </ul>
+            </li>
+            <li><span class="highlight">서비스 제공을 위한 정보:</span>
+              <ul>
+                <li>필수: 이메일 주소</li>
+                <li>선택: 위치 정보, 학번, 계좌번호, 계좌 예금주명</li>
+              </ul>
+            </li>
+            <li><span class="highlight">서비스 이용 및 부정 이용 확인을 위한 정보:</span>
+              <ul>
+                <li>필수: 서비스 이용기록 및 기기정보</li>
+              </ul>
+            </li>
           </ul>
         </div>
 
         <div class="content-card">
-          <h3>How We Use Your Information</h3>
-          <p>Your information is used exclusively for the following purposes:</p>
+          <h3>정보 사용 목적</h3>
+          <p>수집한 정보는 다음 목적으로만 사용됩니다:</p>
           <ul>
-            <li>Verifying your status as a Sungkyul University student</li>
-            <li>Connecting you with available taxi drivers</li>
-            <li>Providing accurate pickup and drop-off services</li>
-            <li>Improving our service quality</li>
+            <li>성결대학교 학생 신분 확인 및 회원 관리</li>
+            <li>택시 동승 파티 매칭 및 관리</li>
+            <li>정확한 출발지/도착지 기반 매칭 서비스 제공</li>
+            <li>실시간 공지사항 및 학사일정 알림 전달</li>
+            <li>학식 메뉴, 시간표 등 캠퍼스 정보 제공</li>
+            <li>파티 채팅 및 커뮤니티 서비스 제공</li>
+            <li>공지사항 전달 및 이용문의에 대한 회신</li>
+            <li>부정 이용 방지 및 서비스 원활한 운영</li>
+            <li>신규 서비스 개발 및 서비스 품질 개선</li>
           </ul>
         </div>
 
         <div class="content-card">
-          <h3>Data Sharing</h3>
-          <p>We value your privacy. <span class="highlight">We do not share, sell, or distribute your personal information with any third parties.</span> Your data is used solely within our app to provide the taxi service.</p>
+          <h3>정보 공유</h3>
+          <p>귀하의 개인정보를 소중히 여깁니다. <span class="highlight">제3자와 개인정보를 공유, 판매 또는 배포하지 않습니다.</span> 수집한 데이터는 서비스 제공을 위해 앱 내에서만 사용됩니다.</p>
+          <p>다만, 법령의 규정 등에 의해 적법하게 강제되는 경우 회사는 수집한 이용자의 개인정보를 사전에 개인의 동의 없이 제3자에게 제공할 수도 있습니다.</p>
         </div>
 
         <div class="content-card">
-          <h3>Data Retention and Deletion</h3>
-          <p>You have full control over your data. If you wish to delete your account and all associated data, you can contact us at any time at <a href="mailto:support.skuri@gmail.com" class="highlight">support.skuri@gmail.com</a>, and we will promptly remove all your information from our systems.</p>
+          <h3>데이터 보관 및 삭제</h3>
+          <p>회사는 이용자의 개인정보에 대해 개인정보의 수집·이용 목적 달성을 위한 기간 동안 개인정보를 보유 및 이용합니다.</p>
+          <p>다만, 서비스 부정이용기록은 부정 가입 및 이용 방지를 위하여 회원 탈퇴 시점으로부터 최대 1년간 보관합니다.</p>
+          <p>법령에 따라 다음 기간 동안 보유할 수 있습니다:</p>
+          <ul>
+            <li>계약 또는 청약철회 등에 관한 기록: 5년</li>
+            <li>대금결제 및 재화 등의 공급에 관한 기록: 5년</li>
+            <li>소비자의 불만 또는 분쟁처리에 관한 기록: 3년</li>
+            <li>개인위치정보에 관한 기록: 6개월</li>
+          </ul>
+          <p>귀하는 데이터에 대한 통제권을 가지고 있습니다. 계정 및 관련된 모든 데이터를 삭제하고 싶으시면 언제든지 <a href="mailto:junjs3341@gmail.com" class="highlight">junjs3341@gmail.com</a>으로 연락주시기 바랍니다.</p>
         </div>
 
         <div class="content-card">
-          <h3>Data Security</h3>
-          <p>We implement industry-standard security measures to protect your personal information from unauthorized access, disclosure, or misuse.</p>
+          <h3>데이터 보안</h3>
+          <p>무단 접근, 공개 또는 오용으로부터 개인정보를 보호하기 위해 업계 표준 보안 조치를 시행합니다.</p>
         </div>
       </section>
 
       <section id="support">
         <div class="section-header">
           <div class="section-icon">💬</div>
-          <h2>Support & Contact</h2>
+          <h2>고객지원 및 문의</h2>
         </div>
 
         <div class="content-card">
-          <h3>Get in Touch</h3>
-          <p>Have questions or need assistance? We're here to help!</p>
+          <h3>연락처</h3>
+          <p>궁금한 점이나 도움이 필요하신가요? 언제든지 연락주세요!</p>
 
           <div class="contact-info">
             <span>📧</span>
             <div>
-              <strong>Email:</strong>
-              <a href="mailto:support.skuri@gmail.com">support.skuri@gmail.com</a>
+              <strong>개인정보 보호 책임자:</strong>
+              <div style="margin-top: 0.5rem;">
+                <div>성명: Louis Chun</div>
+                <div>직책: CTO</div>
+                <div>이메일: <a href="mailto:junjs3341@gmail.com">junjs3341@gmail.com</a></div>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="content-card">
-          <h3>Frequently Asked Questions</h3>
+          <h3>자주 묻는 질문</h3>
 
           <div class="faq-item">
-            <h4>Who can use SKURI Taxi?</h4>
-            <p>SKURI Taxi is exclusively available to Sungkyul University students. You must have a valid @sungkyul.ac.kr email address to register and use the service.</p>
+            <h4>SKURI Taxi를 누가 이용할 수 있나요?</h4>
+            <p>SKURI Taxi는 성결대학교 학생들만 이용할 수 있습니다. 서비스 회원가입 및 이용을 위해 유효한 @sungkyul.ac.kr 이메일 주소가 필요합니다. Google 로그인을 통해 성결대학교 계정으로 인증됩니다.</p>
           </div>
 
           <div class="faq-item">
-            <h4>How do I request a taxi?</h4>
-            <p>Simply open the app, log in with your Sungkyul University Google account, allow location access, and tap the request button. A nearby driver will be dispatched to your location.</p>
+            <h4>택시 동승 파티는 어떻게 만들고 참여하나요?</h4>
+            <p>택시 탭에서 '+' 버튼을 눌러 출발지, 도착지, 출발시간 등을 설정하여 파티를 생성할 수 있습니다. 다른 학생들이 만든 파티에 동승 요청을 보내 참여할 수도 있습니다. 파티 리더가 요청을 수락하면 파티 채팅방에서 소통할 수 있습니다.</p>
           </div>
 
           <div class="faq-item">
-            <h4>Is my location data safe?</h4>
-            <p>Yes, absolutely. We only use your location data to provide the taxi service. Your location information is not shared with third parties and is handled with the highest security standards.</p>
+            <h4>위치 정보가 안전한가요?</h4>
+            <p>네, 안전합니다. 위치 정보는 택시 동승 매칭을 위한 목적으로만 사용되며, 사용자가 위치 공유를 설정했을 때만 파티원들에게 공개됩니다. 위치 정보는 제3자와 공유되지 않으며 최고 수준의 보안 기준으로 처리됩니다.</p>
+          </div>
+
+          <div class="faq-item">
+            <h4>알림은 무엇에 사용되나요?</h4>
+            <p>알림은 다음과 같은 목적으로 사용됩니다: 동승 요청 승인/거절 알림, 학교 공지사항 알림, 학교 학사일정 알림, 파티 채팅 메시지 알림 등입니다. 세부 알림 설정은 앱 내에서 제어할 수 있습니다.</p>
+          </div>
+
+          <div class="faq-item">
+            <h4>어떤 기능을 사용할 수 있나요?</h4>
+            <p>SKURI Taxi는 택시 동승 매칭, 실시간 학교 공지사항, 학식 메뉴 확인, 학사일정 조회, 내 시간표 관리, 게시판 커뮤니티, 파티 채팅 등 성결대 학생들에게 필요한 다양한 기능을 제공합니다.</p>
           </div>
         </div>
       </section>
